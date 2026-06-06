@@ -12,10 +12,39 @@ This repository contains a manual implementation of the **Gradient Descent** alg
 *   **Vectorized implementation** using NumPy for performance.
 
 ## 🧠 The Math
+
 The model minimizes the Cost Function (MSE) by iteratively updating parameters using partial derivatives:
 
-1.  **Prediction:** $\hat{y} = mx + b$
-2.  **Cost Function (MSE):** $J(m,b) = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2$
+1.  **Prediction:** 
+    $$\hat{y}_i = m x_i + b$$
+
+2.  **Cost Function (MSE):** 
+    $$J(m,b) = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2$$
+
 3.  **Gradients:**
-    *   $\frac{\partial J}{\partial m} = -\frac{2}{n} \sum x(y - \hat{y})$
-    *   $\frac{\partial J}{\partial b} = -\frac{2}{n} \sum (y - \hat{y})$
+    *   $$\frac{\partial J}{\partial m} = -\frac{2}{n} \sum_{i=1}^{n} x_i (y_i - \hat{y}_i)$$
+    *   $$\frac{\partial J}{\partial b} = -\frac{2}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)$$
+
+4.  **Parameter Updates** (Gradient Descent):
+    *   $$m := m - \alpha \frac{\partial J}{\partial m}$$
+    *   $$b := b - \alpha \frac{\partial J}{\partial b}$$
+    
+    where $\alpha$ is the learning rate
+
+## 📊 Example Usage
+
+```python
+import numpy as np
+from linear_regression import LinearRegression
+
+# Sample data
+X = np.array([1, 2, 3, 4, 5])
+y = np.array([2, 4, 6, 8, 10])
+
+# Create and train model
+model = LinearRegression(learning_rate=0.01, n_iterations=1000)
+model.fit(X, y)
+
+# Make predictions
+predictions = model.predict(np.array([6, 7, 8]))
+print(predictions)  # Output: [12. 14. 16.]
